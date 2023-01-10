@@ -26,7 +26,8 @@ export async function calculateSettlement(
   const result = transactions.reduce(
     (acc: number, obj: MerchantTransaction) => {
       const modifier = obj.type === "REFUND" ? -1 : 1;
-      return acc + modifier * obj.amount;
+      const result = acc + modifier * obj.amount;
+      return Math.round((result + Number.EPSILON) * 100) / 100;
     },
     0
   );
