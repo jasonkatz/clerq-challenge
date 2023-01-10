@@ -9,4 +9,9 @@ app.get("/test", (_, res: Response) => {
   res.send("I am alive...");
 });
 
+app.get("/merchant/:merchantId/settlement/:date", (_, res: Response) => {
+  res.status(501);
+  res.send("Not yet implemented");
+});
+
 export default app;
