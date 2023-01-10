@@ -23,7 +23,9 @@ export interface AcmeMerchantDetails {
   updated_at: string;
 }
 
-export async function getMerchantDetails(merchantId: string) {
+export async function getMerchantDetails(
+  merchantId: string
+): Promise<MerchantDetails> {
   const response = await executeApiGetRequest<AcmeMerchantDetails>(
     `/merchants/${merchantId}`
   );
