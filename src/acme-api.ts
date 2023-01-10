@@ -39,10 +39,11 @@ export async function getMerchantTransactions(
 ): Promise<Page<MerchantTransaction>> {
   // TODO
   const response = await executeApiGetRequest(
-    "/transacations",
-    { created_at_lte: upToDate },
+    "/transactions",
+    { merchant: merchantId, created_at_lte: upToDate },
     validateMerchantTransactionsResponse
   );
+
   const { data } = response;
 
   return adaptMerchantTransactionsResponse(data);
@@ -116,7 +117,7 @@ function validateMerchantTransactionsResponse(
       throw new DataValidationError();
     }
 
-    if (transaction.type !== "PURCHASE" && transaction.type !== "REFUND") {
+    if (transaction.type !== "SALE" && transaction.type !== "REFUND") {
       throw new DataValidationError();
     }
   });
@@ -145,7 +146,7 @@ function adaptMerchantTransactionsResponse(
       createdAt: new Date(result.created_at),
       updatedAt: new Date(result.updated_at),
       amount: parseFloat(result.amount),
-      type: result.type as "PURCHASE" | "REFUND",
+      type: result.type as "SALE" | "REFUND",
       customer: result.customer,
       merchant: result.merchant,
       order: result.order,

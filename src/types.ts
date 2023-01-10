@@ -26,7 +26,7 @@ export interface AcmeMerchantTransaction {
 export interface MerchantTransaction {
   id: string;
   amount: number;
-  type: "PURCHASE" | "REFUND";
+  type: "SALE" | "REFUND";
   customer: string;
   merchant: string;
   order: string;
