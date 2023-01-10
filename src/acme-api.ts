@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-
 import axiosRetry from "axios-retry";
+
+import { MerchantDetails, AcmeMerchantDetails } from "./types";
 
 // Creating retry mechanism to re-attempt requests that time out or result in 5xx errors
 axiosRetry(axios, { retries: 5 });
@@ -8,49 +9,6 @@ axiosRetry(axios, { retries: 5 });
 const REQUEST_TIMEOUT_MS = 3000;
 
 const API_URL = "https://acme-payments.clerq.io/tech_assessment";
-
-export interface MerchantDetails {
-  id: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface AcmeMerchantDetails {
-  id: string;
-  name: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface AcmeMerchantTransaction {
-  id: string;
-  amount: number;
-  type: "PURCHASE" | "REFUND";
-  customer: string;
-  merchant: string;
-  order: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface MerchantTransaction {
-  id: string;
-  amount: number;
-  type: "PURCHASE" | "REFUND";
-  customer: string;
-  merchant: string;
-  order: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface Page<T> {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: T[];
-}
 
 export async function getMerchantDetails(
   merchantId: string
