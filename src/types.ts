@@ -14,8 +14,8 @@ export interface AcmeMerchantDetails {
 
 export interface AcmeMerchantTransaction {
   id: string;
-  amount: number;
-  type: "PURCHASE" | "REFUND";
+  amount: string;
+  type: string;
   customer: string;
   merchant: string;
   order: string;
@@ -30,8 +30,8 @@ export interface MerchantTransaction {
   customer: string;
   merchant: string;
   order: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Page<T> {
