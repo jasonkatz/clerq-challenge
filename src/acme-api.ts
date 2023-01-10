@@ -15,6 +15,7 @@ export async function getMerchantDetails(
 ): Promise<MerchantDetails> {
   const response = await executeApiGetRequest<AcmeMerchantDetails>(
     `/merchants/${merchantId}`,
+    {},
     validateMerchantDetailsResponse
   );
   const { data } = response;
@@ -34,6 +35,7 @@ class DataValidationError extends Error {
 
 async function executeApiGetRequest<T>(
   path: string,
+  params: any,
   validate: (data: T) => void
 ): Promise<AxiosResponse<T>> {
   // Retry 5 times, on top of the 5 axios retries that we have setup - handles parsing errors
