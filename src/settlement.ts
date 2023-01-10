@@ -5,6 +5,7 @@ export async function calculateSettlement(
   merchantId: string,
   upToDate: string
 ): Promise<number> {
+  let pageNumber = 1;
   let currentPage: Page<MerchantTransaction> = await getMerchantTransactions(
     merchantId,
     upToDate
@@ -13,7 +14,12 @@ export async function calculateSettlement(
   let transactions: MerchantTransaction[] = currentPage.results;
 
   while (currentPage.next !== null) {
-    currentPage = await getMerchantTransactions(merchantId, upToDate);
+    ++pageNumber;
+    currentPage = await getMerchantTransactions(
+      merchantId,
+      upToDate,
+      pageNumber
+    );
     transactions = transactions.concat(currentPage.results);
   }
 

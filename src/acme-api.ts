@@ -35,12 +35,13 @@ export async function getMerchantDetails(
 
 export async function getMerchantTransactions(
   merchantId: string,
-  upToDate: string
+  upToDate: string,
+  pageNumber?: number
 ): Promise<Page<MerchantTransaction>> {
   // TODO
   const response = await executeApiGetRequest(
     "/transactions",
-    { merchant: merchantId, created_at_lte: upToDate },
+    { merchant: merchantId, created_at_lte: upToDate, page: pageNumber },
     validateMerchantTransactionsResponse
   );
 
