@@ -1,5 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 
+import axiosRetry from "axios-retry";
+
+// Creating retry mechanism to re-attempt requests that time out or result in 5xx errors
+axiosRetry(axios, { retries: 5 });
+
+const REQUEST_TIMEOUT_MS = 3000;
+
 const API_URL = "https://acme-payments.clerq.io/tech_assessment";
 
 export interface MerchantDetails {
@@ -32,12 +39,16 @@ export function getMerchantTransactions(merchantId: string, upToDate: string) {
 async function executeApiGetRequest<T>(
   path: string
 ): Promise<AxiosResponse<T>> {
-  try {
-    const response = await axios.get(`${API_URL}${path}`);
-    return response;
-  } catch (e) {
-    console.log(e);
-    throw e;
+  // Retry 5 times, on top of the 5 axios retries that we have setup - handles parsing errors
+  for (let i = 0; i < 5; ++i) {
+    try {
+      const response = await axios.get(`${API_URL}${path}`, {
+        timeout: REQUEST_TIMEOUT_MS,
+      });
+      return response;
+    } catch (e) {
+      console.log("API error", e);
+    }
   }
 }
 
