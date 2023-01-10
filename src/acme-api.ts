@@ -63,6 +63,7 @@ async function executeApiGetRequest<T>(
   for (let i = 0; i < 5; ++i) {
     try {
       const response = await axios.get(`${API_URL}${path}`, {
+        params,
         timeout: REQUEST_TIMEOUT_MS,
       });
 
