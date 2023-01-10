@@ -10,7 +10,7 @@ import {
 } from "./types";
 
 // Creating retry mechanism to re-attempt requests that time out or result in 5xx errors
-axiosRetry(axios, { retries: 5 });
+axiosRetry(axios, { retries: 10 });
 
 const REQUEST_TIMEOUT_MS = 3000;
 
@@ -61,8 +61,8 @@ async function executeApiGetRequest<T>(
   params: any,
   validate: (data: T) => void
 ): Promise<AxiosResponse<T>> {
-  // Retry 5 times, on top of the 5 axios retries that we have setup - handles parsing errors
-  for (let i = 0; i < 5; ++i) {
+  // Retry 10 times, on top of the 5 axios retries that we have setup - handles parsing errors
+  for (let i = 0; i < 10; ++i) {
     try {
       const response = await axios.get(`${API_URL}${path}`, {
         params,
