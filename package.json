@@ -1,0 +1,15 @@
+{
+  "name": "clerq-challenge",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+      "build": "tsc",
+      "start": "node dist/index.js"
+  },
+  "repository": "git@github.com:jasonkatz/clerq-challenge.git",
+  "author": "Jason Katz <jkatz94@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^4.9.4"
+  }
+}
